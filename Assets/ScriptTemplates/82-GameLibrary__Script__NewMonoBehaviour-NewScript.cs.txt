@@ -1,0 +1,7 @@
+using UnityEngine;
+
+namespace GameLibrary{
+	public class #SCRIPTNAME# : MonoBehaviour{
+		
+	}
+}
