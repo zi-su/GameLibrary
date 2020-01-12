@@ -10,7 +10,11 @@ namespace GameLibrary{
             Left,
             Right,
             Up,
-            Down
+            Down,
+            KeyLeft,
+            KeyRight,
+            KeyUp,
+            KeyDown,
         }
 
         public enum StickType
@@ -27,6 +31,12 @@ namespace GameLibrary{
             public bool buttonRight;
             public bool buttonUp;
             public bool buttonDown;
+
+            public bool keyLeft;
+            public bool keyRight;
+            public bool keyUp;
+            public bool keyDown;
+
             public void Clear()
             {
                 leftStick = Vector2.zero;
@@ -35,6 +45,11 @@ namespace GameLibrary{
                 buttonRight = false;
                 buttonUp = false;
                 buttonDown = false;
+                keyLeft = false;
+                keyRight = false;
+                keyUp = false;
+                keyDown = false;
+
             }
 
             public void Backup(GamePadData current)
@@ -45,6 +60,11 @@ namespace GameLibrary{
                 buttonRight = current.buttonRight;
                 buttonUp = current.buttonUp;
                 buttonDown = current.buttonDown;
+
+                keyLeft = current.keyLeft;
+                keyRight = current.keyRight;
+                keyUp = current.keyUp;
+                keyDown = current.keyDown;
 
             }
             public void Update()
@@ -59,6 +79,11 @@ namespace GameLibrary{
                 buttonRight = Input.GetButton("ButtonRight");
                 buttonUp = Input.GetButton("ButtonUp");
                 buttonDown = Input.GetButton("ButtonDown");
+
+                keyLeft = Input.GetAxis("KeyHorizontal") < 0.0f;
+                keyRight = Input.GetAxis("KeyHorizontal") > 0.0f;
+                keyUp = Input.GetAxis("KeyVertical") < 0.0f;
+                keyDown = Input.GetAxis("KeyVertical") > 0.0f;
 
             }
         }
@@ -99,6 +124,18 @@ namespace GameLibrary{
                         break;
                     case ButtonType.Down:
                         ret = current.buttonDown && !prev.buttonDown;
+                        break;
+                    case ButtonType.KeyLeft:
+                        ret = current.keyLeft && !prev.keyLeft;
+                        break;
+                    case ButtonType.KeyRight:
+                        ret = current.keyRight && !prev.keyRight;
+                        break;
+                    case ButtonType.KeyUp:
+                        ret = current.keyUp && !prev.keyUp;
+                        break;
+                    case ButtonType.KeyDown:
+                        ret = current.keyDown && !prev.keyDown;
                         break;
                     default:
                         break;
@@ -156,6 +193,7 @@ namespace GameLibrary{
         {
             var go = new GameObject("GamePadManager", typeof(GamePad));
             instance = go.GetComponent<GamePad>();
+            DontDestroyOnLoad(go);
         }
 
         static GamePad instance = null;

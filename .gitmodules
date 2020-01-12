@@ -1,0 +1,3 @@
+[submodule "Assets/ShaderLibrary"]
+	path = Assets/ShaderLibrary
+	url = https://github.com/zi-su/ShaderLibrary
