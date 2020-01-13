@@ -10,7 +10,9 @@ public class Title : MonoBehaviour
     [SerializeField] GameLibrary.Button[] buttons = new GameLibrary.Button[2];
     GameLibrary.Button selectedButton;
 
-    [SerializeField] GameLibrary.AssetReferenceTable _refTable;
+    [SerializeField] GameLibrary.AssetReferenceTable _refTable = null;
+
+    UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> handle;
     bool isFinish = false;
     // Start is called before the first frame update
     void Start()
@@ -21,8 +23,8 @@ public class Title : MonoBehaviour
 
         buttons[0].SetClickAction(() =>
         {
-            var ope = Addressables.InstantiateAsync(_refTable.GetAssetReference(GameLibrary.AssetRefrenceUI.ID.DIALOG));
-            ope.Completed += Ope_Completed;
+            handle = Addressables.InstantiateAsync(_refTable.GetAssetReference(GameLibrary.AssetRefrenceUI.ID.DIALOG));
+            handle.Completed += Ope_Completed;
         });
     }
 
@@ -32,8 +34,13 @@ public class Title : MonoBehaviour
         dialog.SetText("This is Dialog");
         dialog.SetCloseAction(()=>
         {
-            isFinish = true;
-            Addressables.LoadSceneAsync("Map001");
+            var from = Color.white;
+            from.a = 0.0f;
+            GameLibrary.UIManager.Instance().Fade().FadeOut(from, Color.white, completeAction:()=>
+            {
+                Addressables.LoadSceneAsync("Map001");
+            });
+            
         });
     }
 
@@ -60,6 +67,7 @@ public class Title : MonoBehaviour
         }
         else if (proxy.IsTrigger(GameLibrary.GamePad.ButtonType.Right))
         {
+            isFinish = true;
             selectedButton.Click();
         }
     }

@@ -7,9 +7,13 @@ namespace GameLibrary{
         [SerializeField] Image frame = null;
         System.Action clickAction = null;
 
-        private void Start()
+        private void Awake()
         {
             frame.enabled = false;
+        }
+        private void Start()
+        {
+            
         }
 
         public void SetClickAction(System.Action action)
@@ -29,6 +33,7 @@ namespace GameLibrary{
         public void Click()
         {
             clickAction?.Invoke();
+            Destroy(gameObject);
         }
 
         private void OnDestroy()

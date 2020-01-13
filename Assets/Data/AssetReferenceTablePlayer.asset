@@ -10,12 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 664ad6eefb0e9b240bf5fa717db7268a, type: 3}
-  m_Name: AssetReferenceTableUI
+  m_Name: NewScriptable
   m_EditorClassIdentifier: 
-  assetReferences:
-  - m_AssetGUID: fe31d98f56bba934c8c4c30e5cab213d
-    m_SubObjectName: 
-  - m_AssetGUID: 011fdda03aadf4c499493ea073e172ee
-    m_SubObjectName: 
-  - m_AssetGUID: a9156e8e48447b246901049a0501053f
-    m_SubObjectName: 
+  assetReferences: []

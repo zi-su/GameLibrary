@@ -12,7 +12,8 @@ namespace GameLibrary{
             {
                 return null;
             }
-            return assetReferences[index];
+            var assetref = assetReferences[index];
+            return assetref;
         }
-	}
+    }
 }

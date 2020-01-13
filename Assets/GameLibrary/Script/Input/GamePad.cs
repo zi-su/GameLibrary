@@ -84,7 +84,6 @@ namespace GameLibrary{
                 keyRight = Input.GetAxis("KeyHorizontal") > 0.0f;
                 keyUp = Input.GetAxis("KeyVertical") < 0.0f;
                 keyDown = Input.GetAxis("KeyVertical") > 0.0f;
-
             }
         }
 

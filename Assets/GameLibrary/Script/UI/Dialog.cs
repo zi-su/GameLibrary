@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dialog : MonoBehaviour
 {
-    [SerializeField] TMPro.TextMeshProUGUI _text;
+    [SerializeField] TMPro.TextMeshProUGUI _text = null;
 
     GameLibrary.GamePad.GamePadProxy proxy;
     System.Action closeAction;
