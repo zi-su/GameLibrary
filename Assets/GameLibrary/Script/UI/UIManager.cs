@@ -10,18 +10,11 @@ namespace GameLibrary{
     /// 常駐する各インスタンスを起動時に生成
     /// </summary>
 	public class UIManager : ManagerBase{
-
-        static UIManager instance;
         Fade fade = null;
         
         public Fade Fade()
         {
             return fade;
-        }
-
-        static public UIManager Instance()
-        {
-            return instance;
         }
 
         /// <summary>
@@ -55,6 +48,14 @@ namespace GameLibrary{
             }
         }
 
+        static UIManager instance = null;
+        static public UIManager Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         /// <summary>
         /// 起動時インスタンス化
         /// </summary>

@@ -36,7 +36,7 @@ public class Title : MonoBehaviour
         {
             var from = Color.white;
             from.a = 0.0f;
-            GameLibrary.UIManager.Instance().Fade().FadeOut(from, Color.white, completeAction:()=>
+            GameLibrary.UIManager.Instance.Fade().FadeOut(Color.white, completeAction:()=>
             {
                 Addressables.LoadSceneAsync("Map001");
             });

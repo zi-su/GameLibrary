@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameLibrary{
     public class GamePad : MonoBehaviour {
-        
+        bool isEnable = true;
         public enum ButtonType
         {
             Left,
@@ -166,8 +166,15 @@ namespace GameLibrary{
             if(gamePadProxies.Count > 0)
             {
                 var p = gamePadProxies[gamePadProxies.Count - 1];
-                p.Backup();
-                p.Update();
+                if (isEnable)
+                {
+                    p.Backup();
+                    p.Update();
+                }
+                else
+                {
+                    p.Clear();
+                }
             }
         }
 
@@ -187,6 +194,11 @@ namespace GameLibrary{
             gamePadProxies.Remove(p);
         }
 
+        public void EnableInput(bool enable)
+        {
+            isEnable = enable;
+        }
+
         [RuntimeInitializeOnLoadMethod]
         static void RuntimeInitialize()
         {
@@ -194,6 +206,7 @@ namespace GameLibrary{
             instance = go.GetComponent<GamePad>();
             DontDestroyOnLoad(go);
         }
+
 
         static GamePad instance = null;
         static public GamePad Instance

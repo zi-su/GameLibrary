@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Player
+  m_Name: Map002
   m_EditorClassIdentifier: 
-  m_GroupName: Player
+  m_GroupName: Map002
   m_Data:
     m_SerializedData: []
-  m_GUID: 4bb1f09185e6ae74db736e1f9a6abb7c
+  m_GUID: 0977348b0fc5e1a46a6f5ca33bb5522e
   m_SerializeEntries:
-  - m_GUID: 5766abd3055b3294297691e015123907
-    m_Address: Player
+  - m_GUID: 2b4a148fb0fd81a43a2ac695cbb1f23c
+    m_Address: Assets/Scenes/Map002.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_mainAssetType: UnityEditor.SceneAsset, UnityEditor, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 102cb392acee177438887a45e265240c, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: fc62c756b25825d459f71340aa4394ca, type: 2}
-    - {fileID: 11400000, guid: cc5f427a5fe55594f938549aa475e0ca, type: 2}
+    - {fileID: 11400000, guid: 2d5a89f51b051c64abf9ab7031b02fa2, type: 2}
+    - {fileID: 11400000, guid: c2f6e6d71a5742047bc91cfa21444a61, type: 2}

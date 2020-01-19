@@ -16,6 +16,10 @@ public class SpawnPlayer : MonoBehaviour
             var ope = assetRef.InstantiateAsync();
             ope.Completed += Ope_Completed;
         }
+        else
+        {
+            p.GetComponent<Player>().Warp(transform.localPosition);
+        }
     }
 
     private void Ope_Completed(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> obj)

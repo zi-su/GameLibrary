@@ -84,10 +84,10 @@ public class Fade : MonoBehaviour
         CalcColor();
     }
 
-    public void FadeOut(Color fromColor, Color toColor, float time = 1.0f, System.Action completeAction = null)
+    public void FadeOut(Color toColor, float time = 1.0f, System.Action completeAction = null)
     {
         canvas.enabled = true;
-        this.fromColor = fromColor;
+        this.fromColor = new Color(toColor.r, toColor.g, toColor.b, 0.0f);
         this.toColor = toColor;
         this.time = time;
         elapsTime = 0.0f;

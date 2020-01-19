@@ -21,4 +21,11 @@ public class Player : MonoBehaviour
         var ls = gamePad.GetStick(GameLibrary.GamePad.StickType.Left) * speedRate;
         characterController.SimpleMove(new Vector3(ls.x, 0.0f, ls.y));
     }
+
+    public void Warp(Vector3 pos)
+    {
+        characterController.enabled = false;
+        transform.localPosition = pos;
+        characterController.enabled = true;
+    }
 }

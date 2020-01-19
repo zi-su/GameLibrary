@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map001 : MonoBehaviour
+public class Map001 : MapBase
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        var ui = GameLibrary.UIManager.Instance();
-        var f = ui.Fade();
-        if(f != null)
-        {
-            f.FadeIn();
-        }
+        base.Start();
     }
 
     // Update is called once per frame
