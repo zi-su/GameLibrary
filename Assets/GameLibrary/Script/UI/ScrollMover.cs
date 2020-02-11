@@ -37,6 +37,18 @@ namespace GameLibrary{
             {
                 MoveRight();
             }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                MoveIndex(4);
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                MoveIndex(0);
+            }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                MoveIndex(content.childCount - 1);
+            }
         }
         
         bool OutAreaVertical(int index)
@@ -63,6 +75,55 @@ namespace GameLibrary{
             return false;
         }
 
+        void MoveIndex(int index)
+        {
+            if(horizontalLayoutGroup != null)
+            {
+                if (OutAreaHorizontal(index))
+                {
+                    var now = content.GetChild(this.index) as RectTransform;
+                    var child = content.GetChild(index) as RectTransform;
+                    if (index < this.index)
+                    {
+                        //左端に映るように移動
+                        float left = child.localPosition.x - child.sizeDelta.x * child.pivot.x - horizontalLayoutGroup.spacing + content.localPosition.x;
+                        float n = left / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
+                        n = scrollRect.horizontalNormalizedPosition + n;
+                        n = Mathf.Clamp01(n);
+                        DOTween.To(() => scrollRect.horizontalNormalizedPosition, x => scrollRect.horizontalNormalizedPosition = x, n, 0.2f);
+                        this.index = index;
+                    }
+                    else
+                    {
+                        //右端に映るように移動
+                        float left = child.localPosition.x + child.sizeDelta.x * child.pivot.x + horizontalLayoutGroup.spacing + content.localPosition.x;
+                        left = left - scrollTrans.sizeDelta.x;
+                        float n = left / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
+                        n = scrollRect.horizontalNormalizedPosition + (n);
+                        n = Mathf.Clamp01(n);
+                        DOTween.To(() => scrollRect.horizontalNormalizedPosition, x => scrollRect.horizontalNormalizedPosition = x, n, 0.2f);
+                        this.index = index;
+                    }
+                }
+            }
+            else if(verticalLayoutGroup != null)
+            {
+                if (OutAreaVertical(index))
+                {
+                    var now = content.GetChild(this.index) as RectTransform;
+                    //現在位置、次の位置の差分だけ移動
+                    var child = content.GetChild(index) as RectTransform;
+                    float diff = child.localPosition.y - now.localPosition.y;
+                    float ndiff = diff / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
+                    float n = scrollRect.verticalNormalizedPosition + ndiff;
+                    if (index == content.childCount - 1) n = 0.0f;
+                    if (index == 0) n = 1.0f;
+                    n = Mathf.Clamp01(n);
+                    DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, n, 0.2f);
+                    this.index = index;
+                }
+            }
+        }
         public void MoveDown()
         {
             var now = content.GetChild(index) as RectTransform;
