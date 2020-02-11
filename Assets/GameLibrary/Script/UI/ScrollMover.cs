@@ -96,9 +96,9 @@ namespace GameLibrary{
                     else
                     {
                         //右端に映るように移動
-                        float left = child.localPosition.x + child.sizeDelta.x * child.pivot.x + horizontalLayoutGroup.spacing + content.localPosition.x;
-                        left = left - scrollTrans.sizeDelta.x;
-                        float n = left / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
+                        float right = child.localPosition.x + child.sizeDelta.x * child.pivot.x + horizontalLayoutGroup.spacing + content.localPosition.x;
+                        right = right - scrollTrans.sizeDelta.x;
+                        float n = right / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
                         n = scrollRect.horizontalNormalizedPosition + (n);
                         n = Mathf.Clamp01(n);
                         DOTween.To(() => scrollRect.horizontalNormalizedPosition, x => scrollRect.horizontalNormalizedPosition = x, n, 0.2f);
