@@ -110,17 +110,28 @@ namespace GameLibrary{
             {
                 if (OutAreaVertical(index))
                 {
-                    var now = content.GetChild(this.index) as RectTransform;
-                    //現在位置、次の位置の差分だけ移動
                     var child = content.GetChild(index) as RectTransform;
-                    float diff = child.localPosition.y - now.localPosition.y;
-                    float ndiff = diff / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
-                    float n = scrollRect.verticalNormalizedPosition + ndiff;
-                    if (index == content.childCount - 1) n = 0.0f;
-                    if (index == 0) n = 1.0f;
-                    n = Mathf.Clamp01(n);
-                    DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, n, 0.2f);
-                    this.index = index;
+                    if (index < this.index)
+                    {
+                        //上端に映るように移動
+                        float top = child.localPosition.y + child.sizeDelta.y * child.pivot.y + verticalLayoutGroup.spacing + content.localPosition.y;
+                        float n = top / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
+                        n = scrollRect.verticalNormalizedPosition+ n;
+                        n = Mathf.Clamp01(n);
+                        DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, n, 0.2f);
+                        this.index = index;
+                    }
+                    else
+                    {
+                        //下端に映るように移動
+                        float down = child.localPosition.y - child.sizeDelta.y * child.pivot.y - verticalLayoutGroup.spacing + content.localPosition.y;
+                        down = down + scrollTrans.sizeDelta.y;
+                        float n = down / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
+                        n = scrollRect.verticalNormalizedPosition + n;
+                        n = Mathf.Clamp01(n);
+                        DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, n, 0.2f);
+                        this.index = index;
+                    }
                 }
             }
         }
