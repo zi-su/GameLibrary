@@ -54,9 +54,9 @@ namespace GameLibrary{
         bool OutAreaVertical(int index)
         {
             var child = content.GetChild(index) as RectTransform;
-            float top = child.localPosition.y + child.sizeDelta.y * child.pivot.y + content.localPosition.y;
-            float bottom = child.localPosition.y - child.sizeDelta.y * child.pivot.y + content.localPosition.y;
-            if(top > 0 || Mathf.Abs(bottom) > scrollTrans.sizeDelta.y)
+            float top = child.localPosition.y + child.rect.height * child.pivot.y + content.localPosition.y;
+            float bottom = child.localPosition.y - child.rect.height * child.pivot.y + content.localPosition.y;
+            if(top > 0 || Mathf.Abs(bottom) > scrollTrans.rect.height)
             {
                 return true;
             }
@@ -66,9 +66,9 @@ namespace GameLibrary{
         bool OutAreaHorizontal(int index)
         {
             var child = content.GetChild(index) as RectTransform;
-            float left = child.localPosition.x - child.sizeDelta.x * child.pivot.x + content.localPosition.x;
-            float right = child.localPosition.x + child.sizeDelta.x * child.pivot.x + content.localPosition.x;
-            if (left < 0 || right > scrollTrans.sizeDelta.x)
+            float left = child.localPosition.x - child.rect.width * child.pivot.x + content.localPosition.x;
+            float right = child.localPosition.x + child.rect.width * child.pivot.x + content.localPosition.x;
+            if (left < 0 || right > scrollTrans.rect.width)
             {
                 return true;
             }
@@ -86,8 +86,8 @@ namespace GameLibrary{
                     if (index < this.index)
                     {
                         //左端に映るように移動
-                        float left = child.localPosition.x - child.sizeDelta.x * child.pivot.x - horizontalLayoutGroup.spacing + content.localPosition.x;
-                        float n = left / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
+                        float left = child.localPosition.x - child.rect.width * child.pivot.x - horizontalLayoutGroup.spacing + content.localPosition.x;
+                        float n = left / (content.rect.width - scrollTrans.rect.width);
                         n = scrollRect.horizontalNormalizedPosition + n;
                         n = Mathf.Clamp01(n);
                         DOTween.To(() => scrollRect.horizontalNormalizedPosition, x => scrollRect.horizontalNormalizedPosition = x, n, 0.2f);
@@ -96,9 +96,9 @@ namespace GameLibrary{
                     else
                     {
                         //右端に映るように移動
-                        float right = child.localPosition.x + child.sizeDelta.x * child.pivot.x + horizontalLayoutGroup.spacing + content.localPosition.x;
-                        right = right - scrollTrans.sizeDelta.x;
-                        float n = right / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
+                        float right = child.localPosition.x + child.rect.width * child.pivot.x + horizontalLayoutGroup.spacing + content.localPosition.x;
+                        right = right - scrollTrans.rect.width;
+                        float n = right / (content.rect.width - scrollTrans.rect.width);
                         n = scrollRect.horizontalNormalizedPosition + (n);
                         n = Mathf.Clamp01(n);
                         DOTween.To(() => scrollRect.horizontalNormalizedPosition, x => scrollRect.horizontalNormalizedPosition = x, n, 0.2f);
@@ -114,8 +114,8 @@ namespace GameLibrary{
                     if (index < this.index)
                     {
                         //上端に映るように移動
-                        float top = child.localPosition.y + child.sizeDelta.y * child.pivot.y + verticalLayoutGroup.spacing + content.localPosition.y;
-                        float n = top / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
+                        float top = child.localPosition.y + child.rect.height * child.pivot.y + verticalLayoutGroup.spacing + content.localPosition.y;
+                        float n = top / (content.rect.height - scrollTrans.rect.height);
                         n = scrollRect.verticalNormalizedPosition+ n;
                         n = Mathf.Clamp01(n);
                         DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, n, 0.2f);
@@ -124,9 +124,9 @@ namespace GameLibrary{
                     else
                     {
                         //下端に映るように移動
-                        float down = child.localPosition.y - child.sizeDelta.y * child.pivot.y - verticalLayoutGroup.spacing + content.localPosition.y;
-                        down = down + scrollTrans.sizeDelta.y;
-                        float n = down / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
+                        float down = child.localPosition.y - child.rect.height * child.pivot.y - verticalLayoutGroup.spacing + content.localPosition.y;
+                        down = down + scrollTrans.rect.height;
+                        float n = down / (content.rect.height - scrollTrans.rect.height);
                         n = scrollRect.verticalNormalizedPosition + n;
                         n = Mathf.Clamp01(n);
                         DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, n, 0.2f);
@@ -150,7 +150,7 @@ namespace GameLibrary{
                 //現在位置、次の位置の差分だけ移動
                 var child = content.GetChild(index) as RectTransform;
                 float diff = child.localPosition.y - now.localPosition.y;
-                float ndiff = diff / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
+                float ndiff = diff / (content.rect.height - scrollTrans.rect.height);
                 float n = scrollRect.verticalNormalizedPosition + ndiff;
                 //if (index == content.childCount - 1) n = 0.0f;
                 n = Mathf.Clamp01(n);
@@ -173,7 +173,7 @@ namespace GameLibrary{
                 //現在位置、次の位置の差分だけ移動
                 var child = content.GetChild(index) as RectTransform;
                 float diff = child.localPosition.y - now.localPosition.y;
-                float ndiff = diff / (content.sizeDelta.y - scrollTrans.sizeDelta.y);
+                float ndiff = diff / (content.rect.height - scrollTrans.rect.height);
                 float n = scrollRect.verticalNormalizedPosition + ndiff;
                 if (index == 0) n = 1.0f;
                 n = Mathf.Clamp01(n);
@@ -196,7 +196,7 @@ namespace GameLibrary{
                 //現在位置、次の位置の差分だけ移動
                 var child = content.GetChild(index) as RectTransform;
                 float diff = child.localPosition.x - now.localPosition.x;
-                float ndiff = diff / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
+                float ndiff = diff / (content.rect.width - scrollTrans.rect.width);
                 float n = scrollRect.horizontalNormalizedPosition + ndiff;
                 if (index == 0) n = 0.0f;
                 n = Mathf.Clamp01(n);
@@ -219,7 +219,7 @@ namespace GameLibrary{
                 //現在位置、次の位置の差分だけ移動
                 var child = content.GetChild(index) as RectTransform;
                 float diff = child.localPosition.x - now.localPosition.x;
-                float ndiff = diff / (content.sizeDelta.x - scrollTrans.sizeDelta.x);
+                float ndiff = diff / (content.rect.width - scrollTrans.rect.width);
                 float n = scrollRect.horizontalNormalizedPosition + ndiff;
                 n = Mathf.Clamp01(n);
                 DOTween.To(() => scrollRect.horizontalNormalizedPosition, x => scrollRect.horizontalNormalizedPosition = x, n, 0.2f);
