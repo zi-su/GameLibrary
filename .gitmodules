@@ -1,3 +1,6 @@
 [submodule "Assets/ShaderLibrary"]
 	path = Assets/ShaderLibrary
 	url = https://github.com/zi-su/ShaderLibrary
+[submodule "Assets/GameLibrary/UnityScrollController"]
+	path = Assets/GameLibrary/UnityScrollController
+	url = https://github.com/zi-su/UnityScrollController
